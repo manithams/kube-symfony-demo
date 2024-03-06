@@ -1,0 +1,6 @@
+# Default values: https://github.com/bitnami/charts/blob/main/bitnami/mysql/values.yaml
+auth: 
+  createDatabase: true
+  database: demo
+  username: demo_user
+  password: demo_pass
