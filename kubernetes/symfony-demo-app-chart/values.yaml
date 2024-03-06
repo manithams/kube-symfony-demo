@@ -1,0 +1,26 @@
+replicaCount: 1
+
+app: 
+  name: symfony-demo-app
+  namespace: demo
+
+image:
+  repository: manithams/lingoda
+  tag: "65"
+  pullPolicy: IfNotPresent
+
+env:
+  DATABASE_URL: "mysql://demo_user:demo_pass@mysql-0.mysql.mysql.svc.cluster.local:3306/demo"
+  APP_ENV: "dev"
+  APP_SECRET: "2ca64f8d83b9e89f5f19d672841d6bb8"
+
+podLabels:
+  app: symfony-demo-app
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "2G"
+  requests:
+    cpu: "0.5"
+    memory: "256Mi"
