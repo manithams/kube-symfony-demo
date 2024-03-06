@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: symfony-demo-app
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: symfony-demo-app
+  template:
+    metadata:
+      labels:
+        app: symfony-demo-app
+    spec:
+      containers:
+      - name: symfony-demo-app
+        image: manithams/lingoda:65
+        ports:
+        - containerPort: 80
+        env:
+        - name: DATABASE_URL
+          value: mysql://demo_user:demo_pass@mysql-0.mysql.mysql.svc.cluster.local:3306/demo
+        - name: APP_ENV
+          value: dev
+        - name: APP_SECRET
+          value: 2ca64f8d83b9e89f5f19d672841d6bb8
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2G"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
