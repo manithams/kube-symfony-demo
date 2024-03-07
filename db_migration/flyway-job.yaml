@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.app.name }}
+  namespace: {{ .Values.app.namespace }}
+spec:
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+  template:
+    spec:
+      containers:
+      - name: flyway
+        image: "{{ .Values.image.flyway_repository }}:{{ .Values.image.flyway_tag }}"
+        command: ["flyway"]
+        args: [
+          "migrate", 
+          "-url=jdbc:mysql://{{ .Values.db.host }}:{{ .Values.db.port }}/{{ .Values.db.database }}", 
+          "-user={{ .Values.db.flywayUser }}", 
+          "-password={{ .Values.db.flywayPassword }}", 
+          "-locations=filesystem:/flyway/sql"
+          ]
+        env:
+        - name: FLYWAY_URL
+          value: "jdbc:mysql://{{ .Values.db.host }}:{{ .Values.db.port }}/{{ .Values.db.name }}"
+        - name: FLYWAY_USER
+          value: {{ .Values.db.flywayUser }}
+        - name: FLYWAY_PASSWORD
+          value: {{ .Values.db.flywayPassword }}
+          # valueFrom:
+          #   secretKeyRef:
+          #     name:  {{ .Values.db.secret.name }}
+          #     key: {{ .Values.db.secret.key }}
+          #     optional: false
+      restartPolicy: Never

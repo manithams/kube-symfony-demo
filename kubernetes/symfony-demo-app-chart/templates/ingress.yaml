@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.app.namespace }}
 spec:
   rules:
-    - host: my-symfony-app.com
+    - host: "{{ .Values.service.hostname }}"
       http:
         paths:
           - path: /
@@ -14,4 +14,4 @@ spec:
               service:
                 name: {{ .Values.app.name }}
                 port:
-                  number: 80
+                  number: {{ .Values.service.port }}

@@ -29,6 +29,7 @@ locals {
     }
     "mysql"         = {}
     "ingress-nginx" = {}
+    "metrics-server"= {}
   }
 }
 
@@ -56,6 +57,7 @@ resource "helm_release" "ingress_nginx" {
 }
 
 # MYSQL
+# If you want to re-install SQL cluster from scratch. You may need to delete the PVC manually.
 resource "helm_release" "mysql" {
   name             = "mysql"
   repository       = "https://charts.bitnami.com/bitnami"
@@ -73,3 +75,24 @@ resource "helm_release" "mysql" {
     kubernetes_namespace.this
   ]
 }
+
+# metrics-server
+resource "helm_release" "metrics-server" {
+  name             = "metrics-server"
+  repository       = "https://charts.bitnami.com/bitnami"
+  version          = "6.13.1"
+  chart            = "metrics-server"
+  namespace        = kubernetes_namespace.this["metrics-server"].id
+  create_namespace = false
+  max_history      = 10
+
+  values = [
+    file("${path.module}/kubernetes_components/metrics-server/values.yaml")
+  ]
+
+  depends_on = [
+    kubernetes_namespace.this
+  ]
+}
+# metric-server will be failed to run on KinD. Execute the following to fix it.
+# kubectl patch -n metrics-server deployment metrics-server --type=json -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
