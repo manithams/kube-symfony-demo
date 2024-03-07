@@ -5,14 +5,15 @@ This repository provides a guide and configuration files to deploy the Symfony D
 ## Features
 - `kind/`: Configuration file for KinD tool to create a  local Kubernetes cluster using Docker.
 - `terraform/`: Directory containing terraform scripts to provision kubernetes componenets (ingress-nginx, mysql, metrics-server).
-- `kubernetes`: Kubernetes manifests and Helm chart to deploy the demo application
-- `demo`: Application folder which contains the source code, Apache config and Dockerfile
+- `kubernetes/`: Kubernetes manifests and Helm chart to deploy the demo application
+- `demo/`: Application folder which contains the source code, Apache config and Dockerfile
+- `db_migration`: configuration files and scripts related to database migrations
 
 ## Prerequisites
 Ensure you have the following prerequisites installed:
 - [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) - (v0.22.0 go1.21.7)
 - [Terraform](https://developer.hashicorp.com/terraform/install?product_intent=terraform) (version v1.7.4 or later)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) (latest)
 - [Helm](https://helm.sh/docs/helm/helm_install/) (v3.8.1)
 - [docker](https://docs.docker.com/engine/install/) (25.0.3)
 
