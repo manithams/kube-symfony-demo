@@ -1,13 +1,10 @@
 # Symfony Demo Application on Kubernetes (Kind)
 
-This repository contains the configuration files and application code to deploy and run the Symfony demo app on a Kubernetes cluster.
-
-## Overview
-The Symfony demo app is a simple Symfony application that showcases various features of the Symfony framework. This repository provides the necessary configuration files and Kubernetes manifests to deploy the Symfony demo app on a Kubernetes cluster.
+This repository provides a guide and configuration files to deploy the Symfony Demo application on a Kubernetes cluster running in KIND (Kubernetes IN Docker) using Terraform for infrastructure provisioning and Helm for application deployment.
 
 ## Features
 - `kind/`: Configuration file for KinD tool to create a  local Kubernetes cluster using Docker.
-- `terraform/`: Directory containing terraform scripts to provision kubernetes componenets (ingress-nginx, mysql).
+- `terraform/`: Directory containing terraform scripts to provision kubernetes componenets (ingress-nginx, mysql, metrics-server).
 - `kubernetes`: Kubernetes manifests and Helm chart to deploy the demo application
 - `demo`: Application folder which contains the source code, Apache config and Dockerfile
 
@@ -19,7 +16,7 @@ Ensure you have the following prerequisites installed:
 - [Helm](https://helm.sh/docs/helm/helm_install/) (v3.8.1)
 - [docker](https://docs.docker.com/engine/install/) (25.0.3)
 
-## Deployment
+## Provision Infrastructure with KinD & Terraform
 1. **Kind**: Navigate to the `kind/` directory and update the `lingoda-config.yaml` accordingly and then execute the following commands:
 ``````
 kind create cluster --config kind/lingoda-config.yaml
@@ -42,6 +39,7 @@ terraform init
 terraform plan
 terraform apply   
 ```
+## Build docker images (Optional)
 3. **Docker**: Navigate to `demo` directory and build the container image.
 - Note: A Public repository in Docker Hub already created to push the images 
 ```
@@ -55,9 +53,16 @@ Push the image to the container registry (Docker hub)
 ```
 docker push manithams/symfony-demo-app:01
 ```
+## Deploy Symfony Demo App with Helm
+1. **Deploy to kubernetes**: Navigate to Kubernetes directory and apply the follwoing `helm` command to deploy the application to cluster.
+- Note: If you are not using the MYSQL server not provisioned by terraform here, then makesure you have configuered correct values in the `kubernetes/symfony-demo-app-chart/values.yaml` and 
+```
+helm install symfony-demo-app ./symfony-demo-app-chart -n demo
+```
+## Access Symfony Demo App
+Update your local `/etc/hosts` file to map the service URL to the Ingress IP address. Open the `/etc/hosts` file in a text editor and add the following line:
+```
+127.0.0.1       localhost my-symfony-app.com
+```
+Access the Symfony Demo app using my-symfony-app.com in your browser.
 
-4. **Deploy to kubernetes**: Navigate to Kubernetes directory and apply the follwoing `helm` command to deploy the application to cluster.
-- Note: Makesure you have configuered correct values in the `kubernetes/symfony-demo-app-chart/values.yaml`
-```
-helm install symfony-demo-app ./symfony-demo-app-chart --set tag=65
-```
