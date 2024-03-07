@@ -4,3 +4,5 @@ auth:
   database: demo
   username: demo_user
   password: demo_pass
+
+# Create a Secret with the above sensitive information and pass the secret name to auth.existingSecret

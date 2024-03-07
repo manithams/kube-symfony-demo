@@ -19,6 +19,8 @@ spec:
         ports:
         - containerPort: 80
         env:
+        # For the time being I have added the following values as ENV vars
+        # Create a Secret with the sensitive information and then Mount the Secret into Pods as environment variables or volumes. 
         - name: DATABASE_URL
           value: mysql://demo_user:demo_pass@mysql-0.mysql.mysql.svc.cluster.local:3306/demo
         - name: APP_ENV
