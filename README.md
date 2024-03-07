@@ -13,11 +13,11 @@ The Symfony demo app is a simple Symfony application that showcases various feat
 
 ## Prerequisites
 Ensure you have the following prerequisites installed:
-- kind - (v0.22.0 go1.21.7)
-- Terraform (version v1.7.4 or later)
-- kubectl
-- Helm (v3.8.1)
-- docker (25.0.3)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) - (v0.22.0 go1.21.7)
+- [Terraform](https://developer.hashicorp.com/terraform/install?product_intent=terraform) (version v1.7.4 or later)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/docs/helm/helm_install/) (v3.8.1)
+- [docker](https://docs.docker.com/engine/install/) (25.0.3)
 
 ## Deployment
 1. **Kind**: Navigate to the `kind/` directory and update the `lingoda-config.yaml` accordingly and then execute the following commands:
