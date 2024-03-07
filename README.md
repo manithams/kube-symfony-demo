@@ -34,7 +34,7 @@ in `terraform/provider.tf`
   }
  ...
 ```` 
-Use following commands 
+Use following commands to run terraform scripts
 ```
 terraform init
 terraform plan
@@ -56,7 +56,7 @@ docker push manithams/symfony-demo-app:01
 ```
 ## Deploy Symfony Demo App with Helm
 1. **Deploy to kubernetes**: Navigate to Kubernetes directory and apply the follwoing `helm` command to deploy the application to cluster.
-- Note: If you are not using the MYSQL server not provisioned by terraform here, then makesure you have configuered correct values in the `kubernetes/symfony-demo-app-chart/values.yaml` and 
+- Note: If you are not using the MYSQL server not provisioned by terraform here, then makesure you have configuered correct values in the `kubernetes/symfony-demo-app-chart/values.yaml`
 ```
 helm install symfony-demo-app ./symfony-demo-app-chart -n demo
 ```
