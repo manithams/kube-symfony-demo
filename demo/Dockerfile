@@ -1,34 +1,34 @@
 FROM php:8.3-apache AS builder
 
 RUN apt-get update && apt-get install -y \
-        default-mysql-client \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-        libzip-dev \
-        libonig-dev \
-        libxml2-dev \
-        libicu-dev \
-        zlib1g-dev \
-        libmcrypt-dev \
         curl \
-        unzip \
+        default-mysql-client \
         git \
+        libfreetype6-dev \
+        libicu-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libonig-dev \
+        libpng-dev \
+        libxml2-dev \
+        libzip-dev \
+        unzip \
+        zlib1g-dev \
     && docker-php-ext-install -j$(nproc) \
-        iconv \
         gd \
+        iconv \
+        intl \
         mbstring \
         mysqli \
         pdo \
         pdo_mysql \
-        zip \
-        intl \
         xml \
+        zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-&& apt-get autoremove -y \
-&& curl -sS https://get.symfony.com/cli/installer | bash \
-&& cp /root/.symfony5/bin/symfony /usr/local/bin/symfony
+    && apt-get autoremove -y \
+    && curl -sS https://get.symfony.com/cli/installer | bash \
+    && cp /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
 WORKDIR /app
 COPY . /app
@@ -40,32 +40,32 @@ RUN COMPOSER_ALLOW_SUPERUSER=1 composer install
 
 FROM php:8.3.3-apache
 RUN apt-get update && apt-get install -y \
-        default-mysql-client \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-        libzip-dev \
-        libonig-dev \
-        libxml2-dev \
-        libicu-dev \
-        zlib1g-dev \
-        libmcrypt-dev \
         curl \
-        unzip \
+        default-mysql-client \
         git \
+        libfreetype6-dev \
+        libicu-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libonig-dev \
+        libpng-dev \
+        libxml2-dev \
+        libzip-dev \
+        unzip \
+        zlib1g-dev \
     && docker-php-ext-install -j$(nproc) \
-        iconv \
         gd \
+        iconv \
+        intl \
         mbstring \
         mysqli \
         pdo \
         pdo_mysql \
-        zip \
-        intl \
         xml \
+        zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-&& apt-get autoremove -y
+    && apt-get autoremove -y
 
 COPY --from=builder /root/.symfony5/bin/symfony /usr/local/bin/symfony
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
