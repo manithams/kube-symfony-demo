@@ -20,6 +20,7 @@ env:
   APP_ENV: "dev"
   APP_SECRET: "2ca64f8d83b9e89f5f19d672841d6bb8"
 
+#Its nice to add owner and env lables to the pod
 podLabels:
   app: symfony-demo-app
 
