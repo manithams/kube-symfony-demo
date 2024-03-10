@@ -1,5 +1,5 @@
 FROM php:8.3-apache AS builder
-
+# To save time in building the image we can install all the dependecies before hand saved in a private repo. So we dont have to run this step everytime we run the builds. 
 RUN apt-get update && apt-get install -y \
         curl \
         default-mysql-client \
