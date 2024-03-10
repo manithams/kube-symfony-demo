@@ -34,3 +34,5 @@ spec:
             requests:
               cpu: "{{ .Values.resources.requests.cpu }}"
               memory: "{{ .Values.resources.requests.memory }}"
+      # It always best to configure readiness|liveness probes in each containers in a deployment
+      # Alway to add a valid restart policy (restartPolicy)
