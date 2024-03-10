@@ -1,3 +1,4 @@
+# Always better to run more than 1 replica for the deployment to ensure high availability. 
 replicaCount: 1
 
 app: 
