@@ -1,5 +1,6 @@
 FROM php:8.3-apache AS builder
-# To save time in building the image we can install all the dependecies before hand saved in a private repo. So we dont have to run this step everytime we run the builds. 
+# To save time in building the image we can install all the dependecies before hand saved in a private repo. So we dont have to run this step everytime we run the builds.
+# Create a dedicated user and a dedicated group in the Docker image to run the application is a best practice.
 RUN apt-get update && apt-get install -y \
         curl \
         default-mysql-client \
