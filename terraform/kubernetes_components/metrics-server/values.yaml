@@ -1,3 +1,5 @@
 # Default values: https://github.com/bitnami/charts/blob/main/bitnami/metrics-server/values.yaml
-# apiService:
-#   insecureSkipTLSVerify: true
+
+# Fix for: kubectl patch -n metrics-server deployment metrics-server --type=json -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
+extraArgs:
+- --kubelet-insecure-tls=true

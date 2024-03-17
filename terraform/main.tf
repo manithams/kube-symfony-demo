@@ -27,9 +27,9 @@ locals {
         "app" : "true"
       }
     }
-    "mysql"         = {}
-    "ingress-nginx" = {}
-    "metrics-server"= {}
+    "mysql"          = {}
+    "ingress-nginx"  = {}
+    "metrics-server" = {}
   }
 }
 
